@@ -5,7 +5,7 @@ export default class EditProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.id,
+      id: props.params.id,
       items: [''],
       errors: [],
     };
@@ -34,7 +34,7 @@ export default class EditProduct extends Component {
     this.state.items.map((item, idx) => !item.length && errors.push(idx));
     this.setState({ errors });
     if (!errors.length) {
-      console.log('ready to submit');
+      console.log('ready to submit', this.props.params.id);
     }
   }
 
@@ -80,5 +80,7 @@ export default class EditProduct extends Component {
 }
 
 EditProduct.propTypes = {
-  id: PropTypes.string,
+  params: PropTypes.shape({
+    id: PropTypes.string,
+  }),
 };
