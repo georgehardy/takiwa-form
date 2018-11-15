@@ -33,6 +33,9 @@ export default class EditProduct extends Component {
     const errors = [];
     this.state.items.map((item, idx) => !item.length && errors.push(idx));
     this.setState({ errors });
+    if (!errors.length) {
+      console.log('ready to submit');
+    }
   }
 
   render() {
