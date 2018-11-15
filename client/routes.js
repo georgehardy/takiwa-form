@@ -40,10 +40,10 @@ export default (
       }}
     />
     <Route
-      path="/edit"
+      path="/edit(/:id)"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/App/components/EditProduct/EditProduct').default);
+          cb(null, require('./modules/EditProduct/components/EditProductForm').default);
         });
       }}
     />
