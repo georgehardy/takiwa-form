@@ -6,47 +6,72 @@ export default class EditProduct extends Component {
     super(props);
     this.state = {
       id: props.id,
-      first: 'testinit',
-      items: ['test0', 'test1', 'test2'],
+      items: [''],
+      errors: [],
     };
   }
 
   handleChange = e => {
-    console.log('hit', e.target.name);
-    e.preventDefault();
     const items = [...this.state.items];
-    items[Number(e.target.name)] = e.target.value;
+    items[e.target.name] = e.target.value;
     this.setState({ items });
   }
 
-  handleAdd = e => {
-
+  handleAdd = () => {
+    const items = [...this.state.items];
+    items.push('');
+    this.setState({ items });
   }
 
   handleDelete = e => {
-
+    const items = [...this.state.items];
+    items.splice(Number(e.target.name), 1);
+    this.setState({ items });
   }
 
-  handleSave = e => {
-
+  handleSubmit = () => {
+    const errors = [];
+    this.state.items.map((item, idx) => !item.length && errors.push(idx));
+    this.setState({ errors });
   }
 
   render() {
     return (
-      <ul>
-        {this.state.items.map((item, idx) => {
-          return (
-            <li>
-              <input
-                name={idx}
-                value={this.state.items[idx]}
-                onChange={this.handleChange}
-                autoComplete="off"
-              />
-            </li>
-          );
-        })}
-      </ul>
+      <div>
+        <ul>
+          {this.state.items.map((item, idx) => {
+            return (
+              <li key={`item${idx}`}>
+                <input
+                  key={`input${idx}`}
+                  name={idx}
+                  value={item}
+                  onChange={this.handleChange}
+                  autoComplete="off"
+                  className={this.state.errors.includes(idx) && 'error'}
+                />
+                <button
+                  key={`del${idx}`}
+                  name={idx}
+                  onClick={this.handleDelete}
+                  disabled={!idx}
+                >
+                  DEL
+                </button>
+                <button
+                  key={`add${idx}`}
+                  name={idx}
+                  onClick={this.handleAdd}
+                  disabled={!item.length}
+                >
+                  ADD
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+        <button onClick={this.handleSubmit}>Save</button>
+      </div>
     );
   }
 }
