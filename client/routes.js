@@ -39,5 +39,13 @@ export default (
         });
       }}
     />
+    <Route
+      path="/edit"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/App/components/EditProduct/EditProduct').default);
+        });
+      }}
+    />
   </Route>
 );
