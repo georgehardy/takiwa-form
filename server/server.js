@@ -60,8 +60,8 @@ if (process.env.NODE_ENV !== 'test') {
       throw error;
     }
 
-    // feed some dummy data in DB.
-    // dummyData();
+    // Insert some dummy data in to database if empty.
+    dummyData();
   });
 }
 
