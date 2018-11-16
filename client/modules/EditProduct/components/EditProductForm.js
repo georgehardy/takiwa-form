@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
+import callApi from '../../../util/apiCaller';
 
 export default class EditProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.params.id,
+      cuid: props.params.id || 0,
+      name: '',
       items: [''],
       errors: [],
+      saved: false,
     };
+  }
+
+  handleName = e => {
+    this.setState({ name: e.target.value });
   }
 
   handleChange = e => {
@@ -34,13 +42,39 @@ export default class EditProduct extends Component {
     this.state.items.map((item, idx) => !item.length && errors.push(idx));
     this.setState({ errors });
     if (!errors.length) {
-      console.log('ready to submit', this.props.params.id);
+      this.submitData();
     }
+  }
+
+  submitData = () => {
+    callApi('products', 'post', {
+      product: {
+        name: this.state.name,
+        cuid: this.state.cuid,
+        items: this.state.items,
+      },
+    })
+    .then(res => {
+      if (res.product) {
+        this.props.router.push('/');
+      } else {
+        // to-do better error handling
+        console.log('error');
+      }
+    });
   }
 
   render() {
     return (
       <div>
+        {this.state.saved && <Redirect to="/" />}
+        <input
+          name="name"
+          value={this.state.name}
+          onChange={this.handleName}
+          autoComplete="off"
+          className={!this.state.name.length && 'error'}
+        />
         <ul>
           {this.state.items.map((item, idx) => {
             return (
@@ -82,5 +116,8 @@ export default class EditProduct extends Component {
 EditProduct.propTypes = {
   params: PropTypes.shape({
     id: PropTypes.string,
+  }),
+  router: PropTypes.shape({
+    push: PropTypes.string,
   }),
 };
