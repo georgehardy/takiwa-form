@@ -3,10 +3,12 @@ import { connectDB, dropDB } from '../server/util/test-helpers';
 import app from '../server/server';
 import dummyData from '../server/dummyData';
 
+// setup in-memory mongo server
 beforeAll(async () => {
   await connectDB();
 });
 
+// drop changes and re-add dummy data
 afterEach(async () => {
   await dropDB();
   await dummyData();
@@ -59,8 +61,3 @@ test('DELETE api/products/<cuid> should return status 200', (done) => {
       done();
     });
 });
-
-// afterAll((done) => {
-//   app.close();
-//   done();
-// });
