@@ -2,16 +2,16 @@ import { Router } from 'express';
 import * as ProductController from '../controllers/product.controller';
 const router = new Router();
 
-// Get all Posts
-router.route('/posts').get(ProductController.getPosts);
+// Get all products
+router.route('/products').get(ProductController.getProducts);
 
-// Get one post by cuid
-router.route('/posts/:cuid').get(ProductController.getPost);
+// Get single product by cuid
+router.route('/products/:cuid').get(ProductController.getProduct);
 
-// Add / Update a product
+// Add or update a product
 router.route('/products').post(ProductController.addProduct);
 
-// Delete a post by cuid
-router.route('/posts/:cuid').delete(ProductController.deletePost);
+// Delete a single product by cuid
+router.route('/products/:cuid').delete(ProductController.deleteProduct);
 
 export default router;

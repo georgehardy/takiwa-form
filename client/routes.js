@@ -16,8 +16,8 @@ if (typeof require.ensure !== 'function') {
  */
 if (process.env.NODE_ENV !== 'production') {
   // Require async routes only in development for react-hot-reloader to work.
-  require('./modules/Post/pages/PostListPage/PostListPage');
-  require('./modules/Post/pages/PostDetailPage/PostDetailPage');
+  require('./modules/Products/pages/ProductListPage/ProductListPage');
+  require('./modules/Products/pages/EditProductPage/EditProductPage');
 }
 
 // react-router setup with code-splitting
@@ -27,23 +27,15 @@ export default (
     <IndexRoute
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Post/pages/PostListPage/PostListPage').default);
+          cb(null, require('./modules/Products/pages/ProductListPage/ProductListPage').default);
         });
       }}
     />
     <Route
-      path="/posts/:slug-:cuid"
+      path="/edit(/:cuid)"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Post/pages/PostDetailPage/PostDetailPage').default);
-        });
-      }}
-    />
-    <Route
-      path="/edit(/:id)"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./modules/EditProduct/components/EditProductForm').default);
+          cb(null, require('./modules/Products/pages/EditProductPage/EditProductPage').default);
         });
       }}
     />
