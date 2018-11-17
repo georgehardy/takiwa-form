@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { Button, Card } from 'semantic-ui-react';
+import { Button, Card, Container, Grid } from 'semantic-ui-react';
 import styles from './ProductList.css';
 
 class ProductList extends Component {
@@ -13,41 +13,37 @@ class ProductList extends Component {
 
   render() {
     return (
-      <div>
-      <Link to="/edit">New</Link>
-      <p>h!!i</p>
-      <Card.Group>
-      {
-        this.props.products.map(product => {
-          return (
-          <Card>
-            <Card.Content>
-              <Card.Header>{product.name}</Card.Header>
-            </Card.Content>
-            <Card.Content extra>
-              <div className="ui two buttons">
-                <Button
-                  basic color="green"
-                  as={Link}
-                  to={`/edit/${product.cuid}`}
-                >
-                >
-                  View / Edit
-                </Button>
-                <Button
-                  basic color="red"
-                  name={product.cuid}
-                  onClick={this.props.handleDelete}
-                >
-                  Delete
-                </Button>
-              </div>
-            </Card.Content>
-          </Card>
-          );
-        })
-      }
-      </Card.Group>
+      <div className={styles.productList}>
+        <Container>
+          <Button as={Link} to={'/edit'} size="huge" className="centered" fluid>Add New</Button>
+          <Card.Group className={styles.cardGroup} centered>
+          {
+            this.props.products.map(product => {
+              return (
+                <Card key={product.cuid}>
+                  <Card.Content>
+                    <Card.Header>{product.name}</Card.Header>
+                  </Card.Content>
+                  <Card.Content extra>
+                    <div className="ui two buttons">
+                      <Button
+                        basic color="green"
+                        as={Link}
+                        to={`/edit/${product.cuid}`}
+                      > View / Edit </Button>
+                      <Button
+                        basic color="red"
+                        name={product.cuid}
+                        onClick={this.props.handleDelete}
+                      > Delete  </Button>
+                    </div>
+                  </Card.Content>
+                </Card>
+              );
+            })
+          }
+          </Card.Group>
+        </Container>
       </div>
     );
   }
@@ -57,6 +53,10 @@ ProductList.propTypes = {
   cuid: PropTypes.string,
   name: PropTypes.string,
   items: PropTypes.array,
+  handleDelete: PropTypes.func,
+  products: PropTypes.shape({
+    map: PropTypes.func,
+  }),
 };
 
 
