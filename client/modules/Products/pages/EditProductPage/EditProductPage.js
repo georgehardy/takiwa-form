@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import EditProductForm from '../../components/EditProductForm/EditProductForm';
 
 import { fetchProduct } from '../../ProductActions';
@@ -10,7 +9,6 @@ import { getProduct } from '../../ProductReducer';
 export function EditProductPage(props) {
   return (
     <div>
-      <p>HI</p>
       <EditProductForm
         cuid={props.product.cuid}
         name={props.product.name}
@@ -41,6 +39,7 @@ EditProductPage.propTypes = {
     items: PropTypes.array,
     cuid: PropTypes.string,
   }),
+  router: PropTypes.object,
 };
 
 export default connect(mapStateToProps)(EditProductPage);

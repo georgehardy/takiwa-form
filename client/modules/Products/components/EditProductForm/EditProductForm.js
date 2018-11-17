@@ -38,7 +38,7 @@ class EditProduct extends Component {
 
   handleSubmit = () => {
     const errors = this.state.items.filter(item => !item.length);
-    if (!errors.length) {
+    if (!errors.length && this.state.name) {
       this.submitData();
     }
   }
@@ -51,13 +51,8 @@ class EditProduct extends Component {
         items: this.state.items,
       },
     })
-    .then(res => {
-      if (res.message) {
-        this.props.router.push('/');
-      } else {
-        // to-do better error handling
-        console.log('error');
-      }
+    .then(() => {
+      this.props.router.push('/');
     });
   }
 
@@ -65,71 +60,57 @@ class EditProduct extends Component {
     return (
       <div className={styles.editProduct}>
         <Form>
-
-    <Form.Field>
-        <Label>Product Category</Label>
-        <Input
-          name="name"
-          value={this.state.name}
-          onChange={this.handleName}
-          autoComplete="off"
-          className={!this.state.name.length && 'error'}
-          icon="tags"
-          iconPosition="left"
-        />
+          <Form.Field>
+            <Label>Product Category</Label>
+            <Input
+              name="name"
+              value={this.state.name}
+              onChange={this.handleName}
+              autoComplete="off"
+              className={!this.state.name.length && 'error'}
+              icon="tags"
+              iconPosition="left"
+            />
           </Form.Field>
           <Label>Items</Label>
           {this.state.items.map((item, idx) => {
             return (
               <Form.Field>
                 <Input
-                  placeholder="item"
-                  key={`input${idx}`}
                   name={idx}
                   value={item}
+                  key={`input${idx}`}
                   onChange={this.handleChange}
+                  placeholder="Item"
                   autoComplete="off"
                   className={!item.length && 'error'}
-                  icon="tag"
-                  iconPosition="left"
-                  option
                 >
-                <input />
-                <Button.Group>
-                  <Button
-                    key={`add${idx}`}
-                    name={idx}
-                    onClick={this.handleAdd}
-                    disabled={!item.length}
-                    color="black"
-                    basic
-                  >
-                    +
-                  </Button>
-                  <Button
-                    key={`del${idx}`}
-                    name={idx}
-                    onClick={this.handleDelete}
-                    disabled={!idx}
-                    color="black"
-                    basic
-                  >
-                    -
-                  </Button>
-                </Button.Group>
+                  <input />
+                  <Button.Group>
+                    <Button
+                      key={`add${idx}`}
+                      name={idx}
+                      onClick={this.handleAdd}
+                      disabled={!item.length}
+                      color="green"
+                      icon="add"
+                    />
+                    <Button
+                      key={`del${idx}`}
+                      name={idx}
+                      onClick={this.handleDelete}
+                      disabled={!idx}
+                      color="red"
+                      icon="minus"
+                    />
+                  </Button.Group>
                 </Input>
-                </Form.Field>
-
+              </Form.Field>
             );
           })}
-
-        <Button onClick={this.handleSubmit} color="black">
-          Save
-        </Button>
-        <Button color="black" basic onClick={() => this.props.router.push('/')}>
-          Back
-        </Button>
-          </Form>
+          <Button onClick={this.handleSubmit} color="black">Save</Button>
+          <Button color="black" basic onClick={() => this.props.router.push('/')}>Back</Button>
+        </Form>
       </div>
     );
   }
@@ -139,6 +120,9 @@ EditProduct.propTypes = {
   cuid: PropTypes.string,
   name: PropTypes.string,
   items: PropTypes.array,
+  router: PropTypes.shape({
+    push: PropTypes.func,
+  }),
 };
 
 
