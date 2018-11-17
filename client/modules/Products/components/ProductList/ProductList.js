@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { Button, Card, Container, Grid } from 'semantic-ui-react';
+import { Button, Card, Container } from 'semantic-ui-react';
 import styles from './ProductList.css';
 
 class ProductList extends Component {
@@ -35,7 +35,7 @@ class ProductList extends Component {
                         basic color="red"
                         name={product.cuid}
                         onClick={this.props.handleDelete}
-                      > Delete  </Button>
+                      > Delete </Button>
                     </div>
                   </Card.Content>
                 </Card>
