@@ -22,13 +22,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hashnode/mern-starter.git"
+    "url": "git+https://gitlab.com/georgehardy/takiwa-form.git"
   },
   "bugs": {
-    "url": "https://github.com/Hashnode/mern-starter/issues"
+    "url": "https://gitlab.com/georgehardy/takiwa-form"
   },
-  "homepage": "https://github.com/Hashnode/mern-starter#readme",
-  "author": "Prashant Abhishek <prashant.abhishek7g@gmail.com>, Mayank Chandola <imayankchd@gmail.com>, Sandeep Panda <sandeep@hashnode.com>, Syed Fazle Rahman <fazle@hashnode.com>, Alkshendra Maurya <alkshendra@hashnode.com>",
+  "homepage": "https://gitlab.com/georgehardy/takiwa-form",
+  "author": "George Hardy <george.hardy@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.26.0",
