@@ -18,6 +18,7 @@ export function addProducts(products) {
   };
 }
 
+// fetch all products from server
 export function fetchProducts() {
   return (dispatch) => {
     return callApi('products').then(res => {
@@ -26,6 +27,7 @@ export function fetchProducts() {
   };
 }
 
+// fetch single product from server
 export function fetchProduct(cuid) {
   return (dispatch) => {
     return callApi(`products/${cuid}`)
@@ -42,6 +44,7 @@ export function deleteProduct(cuid) {
   };
 }
 
+// send request to delete product
 export function deleteProductRequest(cuid) {
   return (dispatch) => {
     return callApi(`products/${cuid}`, 'delete').then(() => dispatch(deleteProduct(cuid)));
