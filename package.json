@@ -123,7 +123,10 @@
     "roots": [
       "tests"
     ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   },
   "ava": {
     "files": [
